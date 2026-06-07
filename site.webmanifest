@@ -2,7 +2,7 @@
   "name": "Jardín Secreto",
   "short_name": "Jardín Secreto",
   "description": "Un jardín privado para Saray",
-  "start_url": "/jardin_secreto/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#2d1b2e",
   "theme_color": "#8B4789",

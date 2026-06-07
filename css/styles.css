@@ -117,42 +117,6 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
 }
 @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.1);} }
 
-/* ── DAILY QUOTE (featured) ── */
-.daily-featured {
-    padding: 55px 20px;
-    background: linear-gradient(135deg, #2d1b2e 0%, #4a2d4a 100%);
-    position: relative; overflow: hidden;
-}
-.daily-featured::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(circle at 20% 50%, rgba(212,165,212,0.08) 0%, transparent 55%),
-                radial-gradient(circle at 80% 50%, rgba(139,71,137,0.08) 0%, transparent 55%);
-}
-.daily-featured-inner {
-    max-width: 820px; margin: 0 auto;
-    text-align: center; position: relative; z-index: 1;
-}
-.daily-featured-label {
-    font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 18px; opacity: 0.9;
-}
-.daily-featured-quote {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem; font-style: italic; font-weight: 400;
-    color: white; line-height: 1.75; margin-bottom: 18px;
-}
-.daily-featured-author {
-    font-size: 0.9rem; color: var(--secondary); letter-spacing: 1px;
-}
-.daily-featured-timer {
-    display: inline-block; margin-top: 22px;
-    padding: 8px 22px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 30px; border: 1px solid rgba(232,180,232,0.2);
-    font-family: 'Courier New', monospace;
-    font-size: 0.85rem; color: rgba(255,255,255,0.55);
-    letter-spacing: 2px;
-}
 
 /* ── HUB DE MÓDULOS ── */
 .hub-section {
