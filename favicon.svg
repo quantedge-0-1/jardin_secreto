@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="80" fill="#2d1b2e"/>
+  <rect width="512" height="512" rx="80" fill="url(#bg)"/>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#6b2d6b"/>
+      <stop offset="100%" stop-color="#2d1b2e"/>
+    </radialGradient>
+  </defs>
+  <text x="256" y="300" text-anchor="middle" font-family="serif" font-size="240" fill="#D4AF37">✦</text>
+  <text x="256" y="430" text-anchor="middle" font-family="serif" font-size="62" fill="#D4A5D4" letter-spacing="4">JS</text>
+</svg>
