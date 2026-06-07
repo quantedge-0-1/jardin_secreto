@@ -621,6 +621,10 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
     color: rgba(255,255,255,0.85);
     margin-bottom: 28px; font-size: 1.05rem; line-height: 1.65;
 }
+.access-subtitle {
+    font-size: 0.88rem !important; opacity: 0.6; margin-bottom: 22px !important;
+    letter-spacing: 0.5px;
+}
 .access-box input {
     width: 100%; padding: 15px;
     border: 2px solid rgba(212,165,212,0.45); border-radius: 12px;
