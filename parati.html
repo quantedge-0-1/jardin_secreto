@@ -17,7 +17,9 @@
 
 <button class="music-btn" id="music-btn" title="Música">🎵</button>
 
-<!-- ACCESS SCREEN -->
+<!-- ════════════════════════════════════
+     PANTALLA DE ACCESO
+════════════════════════════════════ -->
 <div id="access-screen">
     <div class="access-box">
         <div class="access-title">✦ Jardín Secreto ✦</div>
@@ -28,7 +30,9 @@
     </div>
 </div>
 
-<!-- MAIN CONTENT -->
+<!-- ════════════════════════════════════
+     CONTENIDO PRINCIPAL
+════════════════════════════════════ -->
 <div id="main-content" style="display:none; opacity:0; transition: opacity 1.5s ease;">
 
     <div class="floating-hearts" id="floatingHearts"></div>
@@ -36,24 +40,20 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="#inicio">✦Jardín Secreto✦</a>
-            <div class="navbar-nav">
+            <a class="navbar-brand" href="#inicio">✦ Jardín Secreto</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navMenu">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#hub">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#cartas">Cartas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#carta">Mi Carta</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#jardin">El Jardín</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#turincon">Tu Rincón</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#hub">Jardín</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#frase-dia">Carta del día</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- HERO -->
+    <!-- ── HERO ─────────────────────────── -->
     <section class="hero" id="inicio">
         <div class="hero-content">
             <h1 class="hero-title">Para Saray</h1>
@@ -61,116 +61,173 @@
             <div class="heart-container">
                 <i class="fas fa-heart heart"></i>
             </div>
-            <p class="lead text-white mb-4 hero-text" style="max-width:620px; margin:0 auto; font-family:'Playfair Display',serif; font-style:italic;">
+            <p class="lead text-white mb-4 hero-text" style="max-width:620px;margin:0 auto;font-family:'Playfair Display',serif;font-style:italic;">
                 "Llegaste a mi vida como Elizabeth Bennet llegó a Pemberley:<br>
                 inesperadamente, transformándolo todo con tu presencia"
             </p>
             <div class="hero-btn mt-4">
-                <button class="love-button" onclick="enterSection('hub')">Explorar el Jardín</button>
+                <button class="love-button" onclick="enterSection('frase-dia')">Entrar al Jardín</button>
             </div>
         </div>
     </section>
 
-    <!-- DAILY QUOTE -->
-    <section class="daily-featured" id="frase-dia">
-        <div class="daily-featured-inner reveal">
-            <div class="daily-featured-label">✦ Frase del día ✦</div>
-            <p class="daily-featured-quote" id="daily-quote"></p>
-            <p class="daily-featured-author" id="daily-author"></p>
-            <div class="daily-featured-timer" id="daily-timer">--:--:--</div>
+    <!-- ── CARTA DEL DÍA ────────────────── -->
+    <section class="daily-letter-section" id="frase-dia">
+        <div class="container">
+            <div class="daily-letter-wrap reveal">
+
+                <!-- Sobre cerrado (estado inicial) -->
+                <div class="d-envelope" id="d-envelope" onclick="openDailyLetter()">
+                    <div class="d-env-flap"></div>
+                    <div class="d-env-body">
+                        <div class="d-env-ornament">✦</div>
+                        <div class="d-env-label">Carta del Día</div>
+                        <div class="d-env-date" id="d-envelope-date"></div>
+                        <div class="d-env-hint">
+                            <i class="fas fa-envelope-open-text"></i>
+                            <span>Toca para abrirla</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carta desplegada (oculta hasta que la abra) -->
+                <div class="d-letter-paper" id="d-letter-paper">
+                    <div class="d-letter-header-ornament">✦ ── ── ✦</div>
+                    <div class="d-letter-label">Carta del Día</div>
+                    <blockquote class="d-letter-quote" id="daily-quote"></blockquote>
+                    <p class="d-letter-author" id="daily-author"></p>
+                    <div class="d-letter-footer">
+                        <span class="d-letter-timer-label">Nueva carta en</span>
+                        <span class="d-letter-timer" id="daily-timer">--:--:--</span>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
-    <!-- HUB DE MÓDULOS -->
+    <!-- ── HUB DE MÓDULOS ───────────────── -->
     <section class="hub-section" id="hub">
         <div class="container">
-            <h2 class="display-5 section-heading reveal" style="margin-bottom:8px;">El Jardín</h2>
-            <div class="section-ornament reveal" style="margin-bottom:40px;">✦ ── ── ── ── ── ✦</div>
+            <h2 class="display-5 section-heading reveal">El Jardín</h2>
+            <div class="section-ornament reveal">✦ ── ── ── ── ── ✦</div>
+            <p class="hub-intro reveal">Cada puerta lleva a un rincón diferente. Ábrelas cuando quieras.</p>
             <div class="hub-grid reveal">
-                <div class="hub-card" onclick="enterSection('frases')">
+
+                <div class="hub-card" onclick="openModule('frases')">
                     <div class="hub-icon"><i class="fas fa-quote-left"></i></div>
                     <div class="hub-title">Frases</div>
                     <div class="hub-desc">Palabras que me recuerdan a ti</div>
-                    <button class="hub-btn">Entrar</button>
+                    <button class="hub-btn">Abrir</button>
                 </div>
-                <div class="hub-card" onclick="enterSection('historia')">
+
+                <div class="hub-card" onclick="openModule('historia')">
                     <div class="hub-icon"><i class="fas fa-book-open"></i></div>
                     <div class="hub-title">Historia</div>
                     <div class="hub-desc">Nuestra pequeña historia</div>
-                    <button class="hub-btn">Entrar</button>
+                    <button class="hub-btn">Abrir</button>
                 </div>
-                <div class="hub-card" onclick="enterSection('cartas')">
+
+                <div class="hub-card" onclick="openModule('cartas')">
                     <div class="hub-icon"><i class="fas fa-envelope"></i></div>
                     <div class="hub-title">Cartas</div>
                     <div class="hub-desc">Cinco cartas escritas para ti</div>
-                    <button class="hub-btn">Entrar</button>
+                    <button class="hub-btn">Abrir</button>
                 </div>
-                <div class="hub-card" onclick="enterSection('carta')">
+
+                <div class="hub-card" onclick="openModule('carta')">
                     <div class="hub-icon"><i class="fas fa-feather-pointed"></i></div>
                     <div class="hub-title">Mi Carta</div>
                     <div class="hub-desc">La declaración principal</div>
-                    <button class="hub-btn">Entrar</button>
+                    <button class="hub-btn">Abrir</button>
                 </div>
-                <div class="hub-card" onclick="enterSection('jardin')">
+
+                <div class="hub-card" onclick="openModule('jardin')">
                     <div class="hub-icon"><i class="fas fa-seedling"></i></div>
                     <div class="hub-title">El Jardín</div>
                     <div class="hub-desc">Lo que amo de ti</div>
-                    <button class="hub-btn">Entrar</button>
+                    <button class="hub-btn">Abrir</button>
                 </div>
-                <div class="hub-card" onclick="enterSection('momentos')">
+
+                <div class="hub-card" onclick="openModule('momentos')">
                     <div class="hub-icon"><i class="fas fa-images"></i></div>
                     <div class="hub-title">Momentos</div>
                     <div class="hub-desc">Nuestros recuerdos</div>
-                    <button class="hub-btn">Entrar</button>
+                    <button class="hub-btn">Abrir</button>
                 </div>
-                <div class="hub-card" onclick="enterSection('turincon')">
+
+                <div class="hub-card" onclick="openModule('turincon')">
                     <div class="hub-icon"><i class="fas fa-pen-nib"></i></div>
                     <div class="hub-title">Tu Rincón</div>
                     <div class="hub-desc">Tu espacio en este jardín</div>
-                    <button class="hub-btn">Entrar</button>
+                    <button class="hub-btn">Abrir</button>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- QUOTES -->
-    <section class="quote-section" id="frases">
+    <!-- ── FRASES ────────────────────────── -->
+    <section class="quote-section hidden-module" id="frases">
         <div class="container">
-            <h2 class="display-4 section-heading reveal">Citas que Me Recuerdan a Ti</h2>
-            <div class="section-ornament reveal">✦ ── ── ── ── ── ✦</div>
-            <div class="row">
-                <div class="col-lg-6 mb-4 reveal">
+            <div class="module-header">
+                <h2 class="display-4 section-heading">Citas que Me Recuerdan a Ti</h2>
+                <div class="section-ornament">✦ ── ── ── ── ── ✦</div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-lg-6 mb-4">
                     <div class="quote-card">
                         <i class="fas fa-quote-left quote-icon"></i>
                         <p class="quote-text">"Te quiero con todo mi corazón. No deseo estar separado de ti desde este día en adelante."</p>
                         <p class="quote-author">— Mr. Darcy a Elizabeth</p>
                     </div>
                 </div>
-                <div class="col-lg-6 mb-4 reveal">
+                <div class="col-lg-6 mb-4">
                     <div class="quote-card">
                         <i class="fas fa-quote-left quote-icon"></i>
                         <p class="quote-text">"Una mente activa y vivaz siempre encuentra motivos de admiración en quien la provoca."</p>
                         <p class="quote-author">— Orgullo y Prejuicio</p>
                     </div>
                 </div>
-                <div class="col-lg-12 mb-4 reveal">
+                <div class="col-lg-12 mb-4">
                     <div class="quote-card">
                         <i class="fas fa-quote-left quote-icon"></i>
                         <p class="quote-text">"En vano he luchado. No sirve de nada. No puedo reprimir mis sentimientos. Debes permitirme decirte cuán ardientemente te admiro y te amo."</p>
-                        <p class="quote-author">— Mr. Darcy</p>
+                        <p class="quote-author">— Mr. Darcy, Orgullo y Prejuicio</p>
                     </div>
                 </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="quote-card">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p class="quote-text">"Me desgarras el alma. Estoy a medias entre la agonía y la esperanza. Dime que no he llegado demasiado tarde."</p>
+                        <p class="quote-author">— Capitán Wentworth, Persuasión — Jane Austen</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="quote-card">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <p class="quote-text">"Piensa en el pasado sólo en la medida en que su recuerdo te dé placer."</p>
+                        <p class="quote-author">— Elizabeth Bennet, Orgullo y Prejuicio</p>
+                    </div>
+                </div>
+            </div>
+            <div class="module-back">
+                <button class="back-btn" onclick="enterSection('hub')">
+                    <i class="fas fa-arrow-up"></i> Volver al jardín
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- TIMELINE -->
-    <section class="timeline-section" id="historia">
+    <!-- ── HISTORIA ──────────────────────── -->
+    <section class="timeline-section hidden-module" id="historia">
         <div class="container">
-            <h2 class="display-4 section-heading reveal">Nuestra Historia de Amor</h2>
-            <div class="section-ornament reveal">✦ ── ── ── ── ── ✦</div>
-            <div class="timeline">
-                <div class="timeline-item reveal">
+            <div class="module-header">
+                <h2 class="display-4 section-heading">Nuestra Historia</h2>
+                <div class="section-ornament">✦ ── ── ── ── ── ✦</div>
+            </div>
+            <div class="timeline mt-4">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="timeline-icon"><i class="fas fa-eye"></i></div>
@@ -178,7 +235,7 @@
                         <p>Como Darcy vio a Elizabeth por primera vez en el baile, así te vi yo: diferente a todos los demás, especial desde el primer instante.</p>
                     </div>
                 </div>
-                <div class="timeline-item reveal">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="timeline-icon"><i class="fas fa-comments"></i></div>
@@ -186,7 +243,7 @@
                         <p>Cada conversación contigo se convirtió en mi momento favorito del día. Tu inteligencia me tiene completamente fascinado, como Elizabeth cautivó a Darcy.</p>
                     </div>
                 </div>
-                <div class="timeline-item reveal">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="timeline-icon"><i class="fas fa-heart-crack"></i></div>
@@ -194,7 +251,7 @@
                         <p>Como las cartas que cruzaban millas entre Darcy y Elizabeth, nuestra historia se escribe con palabras que viajan a través del tiempo y el espacio.</p>
                     </div>
                 </div>
-                <div class="timeline-item reveal">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="timeline-icon"><i class="fas fa-ring"></i></div>
@@ -202,7 +259,7 @@
                         <p>Cuando finalmente te dije lo que sentía, fue como la segunda propuesta de Darcy: sincera, vulnerable, completamente honesta.</p>
                     </div>
                 </div>
-                <div class="timeline-item reveal">
+                <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="timeline-icon"><i class="fas fa-infinity"></i></div>
@@ -211,16 +268,23 @@
                     </div>
                 </div>
             </div>
+            <div class="module-back">
+                <button class="back-btn" onclick="enterSection('hub')">
+                    <i class="fas fa-arrow-up"></i> Volver al jardín
+                </button>
+            </div>
         </div>
     </section>
 
-    <!-- CARTAS SELLADAS -->
-    <section class="sealed-section" id="cartas">
+    <!-- ── CARTAS SELLADAS ───────────────── -->
+    <section class="sealed-section hidden-module" id="cartas">
         <div class="container position-relative">
-            <h2 class="display-4 section-title-light reveal">Cartas del Jardín Secreto</h2>
-            <p class="section-sub-light reveal">Cinco cartas escritas sólo para ti. Ábrelas cuando lo necesites.</p>
-            <div class="row justify-content-center">
-                <div class="col-6 col-md-4 envelope-card reveal" onclick="openLetter(0)">
+            <div class="module-header">
+                <h2 class="display-4 section-title-light">Cartas del Jardín Secreto</h2>
+                <p class="section-sub-light">Cinco cartas escritas sólo para ti. Ábrelas cuando lo necesites.</p>
+            </div>
+            <div class="row justify-content-center mt-4">
+                <div class="col-6 col-md-4 envelope-card" onclick="openLetter(0)">
                     <div class="envelope-inner">
                         <span class="envelope-seal">💌</span>
                         <div class="envelope-number">Carta I</div>
@@ -228,7 +292,7 @@
                         <div class="envelope-hint">Toca para abrir</div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4 envelope-card reveal" onclick="openLetter(1)">
+                <div class="col-6 col-md-4 envelope-card" onclick="openLetter(1)">
                     <div class="envelope-inner">
                         <span class="envelope-seal">🌸</span>
                         <div class="envelope-number">Carta II</div>
@@ -236,7 +300,7 @@
                         <div class="envelope-hint">Toca para abrir</div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4 envelope-card reveal" onclick="openLetter(2)">
+                <div class="col-6 col-md-4 envelope-card" onclick="openLetter(2)">
                     <div class="envelope-inner">
                         <span class="envelope-seal">✨</span>
                         <div class="envelope-number">Carta III</div>
@@ -244,7 +308,7 @@
                         <div class="envelope-hint">Toca para abrir</div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4 envelope-card reveal" onclick="openLetter(3)">
+                <div class="col-6 col-md-4 envelope-card" onclick="openLetter(3)">
                     <div class="envelope-inner">
                         <span class="envelope-seal">🕯️</span>
                         <div class="envelope-number">Carta IV</div>
@@ -252,7 +316,7 @@
                         <div class="envelope-hint">Toca para abrir</div>
                     </div>
                 </div>
-                <div class="col-6 col-md-4 envelope-card reveal" onclick="openLetter(4)">
+                <div class="col-6 col-md-4 envelope-card" onclick="openLetter(4)">
                     <div class="envelope-inner">
                         <span class="envelope-seal">🌹</span>
                         <div class="envelope-number">Carta V</div>
@@ -261,10 +325,15 @@
                     </div>
                 </div>
             </div>
+            <div class="module-back">
+                <button class="back-btn back-btn-light" onclick="enterSection('hub')">
+                    <i class="fas fa-arrow-up"></i> Volver al jardín
+                </button>
+            </div>
         </div>
     </section>
 
-    <!-- LETTER MODAL -->
+    <!-- MODAL DE CARTA -->
     <div id="letterModal" class="letter-modal-overlay" onclick="closeOnOverlay(event)">
         <div class="letter-modal-paper">
             <button class="modal-close-btn" onclick="closeLetter()">✕</button>
@@ -278,12 +347,12 @@
         </div>
     </div>
 
-    <!-- MAIN LETTER -->
-    <section class="letter-section" id="carta">
+    <!-- ── MI CARTA ───────────────────────── -->
+    <section class="letter-section hidden-module" id="carta">
         <div class="container">
-            <div class="letter-container reveal">
+            <div class="letter-container">
                 <div class="letter-header">
-                    <p class="mb-0" style="font-family:'Dancing Script',cursive; font-size:1.3rem;">una de esas mil cartas,</p>
+                    <p class="mb-0" style="font-family:'Dancing Script',cursive;font-size:1.3rem;">una de esas mil cartas,</p>
                 </div>
                 <div class="letter-body">
                     <p>Querida Saray,</p>
@@ -298,19 +367,26 @@
                     <div class="mt-2"><i class="fas fa-heart" style="color:var(--primary);font-size:1.1rem;"></i></div>
                 </div>
             </div>
+            <div class="module-back mt-4">
+                <button class="back-btn" onclick="enterSection('hub')">
+                    <i class="fas fa-arrow-up"></i> Volver al jardín
+                </button>
+            </div>
         </div>
     </section>
 
-    <!-- JARDÍN DE VIRTUDES -->
-    <section class="gallery-section" id="jardin">
+    <!-- ── JARDÍN DE VIRTUDES ────────────── -->
+    <section class="gallery-section hidden-module" id="jardin">
         <div class="container">
-            <h2 class="display-4 section-heading reveal">Jardín de las Virtudes</h2>
-            <div class="section-ornament reveal">✦ ── ── ── ── ── ✦</div>
-            <p class="text-center mb-5 reveal" style="color:var(--primary); font-style:italic; font-family:'Playfair Display',serif; font-size:1.15rem;">
-                Las razones por las que te llevo en el corazón
-            </p>
-            <div class="row">
-                <div class="col-md-4 reveal">
+            <div class="module-header">
+                <h2 class="display-4 section-heading">Jardín de las Virtudes</h2>
+                <div class="section-ornament">✦ ── ── ── ── ── ✦</div>
+                <p class="mt-3" style="color:var(--primary);font-style:italic;font-family:'Playfair Display',serif;font-size:1.1rem;">
+                    Las razones por las que te llevo en el corazón
+                </p>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-4 mb-4">
                     <div class="virtue-card">
                         <div class="virtue-icon"><i class="fas fa-smile-beam"></i></div>
                         <div class="virtue-content">
@@ -319,7 +395,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 reveal">
+                <div class="col-md-4 mb-4">
                     <div class="virtue-card">
                         <div class="virtue-icon"><i class="fas fa-brain"></i></div>
                         <div class="virtue-content">
@@ -328,7 +404,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 reveal">
+                <div class="col-md-4 mb-4">
                     <div class="virtue-card">
                         <div class="virtue-icon"><i class="fas fa-heart"></i></div>
                         <div class="virtue-content">
@@ -337,7 +413,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 reveal">
+                <div class="col-md-4 mb-4">
                     <div class="virtue-card">
                         <div class="virtue-icon"><i class="fas fa-star"></i></div>
                         <div class="virtue-content">
@@ -346,7 +422,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 reveal">
+                <div class="col-md-4 mb-4">
                     <div class="virtue-card">
                         <div class="virtue-icon"><i class="fas fa-music"></i></div>
                         <div class="virtue-content">
@@ -355,7 +431,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 reveal">
+                <div class="col-md-4 mb-4">
                     <div class="virtue-card">
                         <div class="virtue-icon"><i class="fas fa-infinity"></i></div>
                         <div class="virtue-content">
@@ -365,123 +441,119 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-5 reveal">
+            <div class="text-center mt-3 mb-2">
                 <button class="love-button" onclick="createHearts()">
                     <i class="fas fa-heart me-2"></i> Llena el jardín de amor
+                </button>
+            </div>
+            <div class="module-back">
+                <button class="back-btn" onclick="enterSection('hub')">
+                    <i class="fas fa-arrow-up"></i> Volver al jardín
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- GALERÍA DE MOMENTOS -->
-    <section class="moments-section" id="momentos">
+    <!-- ── MOMENTOS ──────────────────────── -->
+    <section class="moments-section hidden-module" id="momentos">
         <div class="container">
-            <h2 class="display-4 section-heading reveal">Nuestros Momentos</h2>
-            <div class="section-ornament reveal">✦ ── ── ── ── ── ✦</div>
-            <p class="text-center mb-5 reveal" style="color:var(--secondary); font-style:italic; font-size:1.05rem;">
-                Un lugar reservado para nuestros recuerdos
-            </p>
-            <div class="row">
-                <div class="col-md-4 reveal">
+            <div class="module-header">
+                <h2 class="display-4 section-heading">Nuestros Momentos</h2>
+                <div class="section-ornament">✦ ── ── ── ── ── ✦</div>
+                <p class="mt-3" style="color:var(--secondary);font-style:italic;font-size:1.05rem;">
+                    Un lugar reservado para nuestros recuerdos
+                </p>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-4 mb-4">
                     <div class="moment-frame">
-                        <div class="moment-placeholder">
-                            <i class="fas fa-camera"></i>
-                            <span>Nuestra primera foto juntos</span>
-                        </div>
+                        <div class="moment-placeholder"><i class="fas fa-camera"></i><span>Nuestra primera foto juntos</span></div>
                         <div class="moment-caption">El primer capítulo</div>
                         <div class="moment-date">Pronto aquí ✦</div>
                     </div>
                 </div>
-                <div class="col-md-4 reveal">
+                <div class="col-md-4 mb-4">
                     <div class="moment-frame">
-                        <div class="moment-placeholder">
-                            <i class="fas fa-star"></i>
-                            <span>Un momento especial</span>
-                        </div>
+                        <div class="moment-placeholder"><i class="fas fa-star"></i><span>Un momento especial</span></div>
                         <div class="moment-caption">Memorias del corazón</div>
                         <div class="moment-date">Pronto aquí ✦</div>
                     </div>
                 </div>
-                <div class="col-md-4 reveal">
+                <div class="col-md-4 mb-4">
                     <div class="moment-frame">
-                        <div class="moment-placeholder">
-                            <i class="fas fa-heart"></i>
-                            <span>Nuestro favorito</span>
-                        </div>
+                        <div class="moment-placeholder"><i class="fas fa-heart"></i><span>Nuestro favorito</span></div>
                         <div class="moment-caption">Lo que más atesoro</div>
                         <div class="moment-date">Pronto aquí ✦</div>
                     </div>
                 </div>
-                <div class="col-md-4 reveal">
+                <div class="col-md-4 mb-4">
                     <div class="moment-frame">
-                        <div class="moment-placeholder">
-                            <i class="fas fa-moon"></i>
-                            <span>Las noches que hablamos</span>
-                        </div>
+                        <div class="moment-placeholder"><i class="fas fa-moon"></i><span>Las noches que hablamos</span></div>
                         <div class="moment-caption">Conversaciones eternas</div>
                         <div class="moment-date">Pronto aquí ✦</div>
                     </div>
                 </div>
-                <div class="col-md-4 reveal">
+                <div class="col-md-4 mb-4">
                     <div class="moment-frame">
-                        <div class="moment-placeholder">
-                            <i class="fas fa-spa"></i>
-                            <span>Tu esencia</span>
-                        </div>
+                        <div class="moment-placeholder"><i class="fas fa-spa"></i><span>Tu esencia</span></div>
                         <div class="moment-caption">Tu manera de ser</div>
                         <div class="moment-date">Pronto aquí ✦</div>
                     </div>
                 </div>
-                <div class="col-md-4 reveal">
+                <div class="col-md-4 mb-4">
                     <div class="moment-frame">
-                        <div class="moment-placeholder">
-                            <i class="fas fa-map-location-dot"></i>
-                            <span>El reencuentro</span>
-                        </div>
+                        <div class="moment-placeholder"><i class="fas fa-map-location-dot"></i><span>El reencuentro</span></div>
                         <div class="moment-caption">Cuando volvamos a vernos</div>
                         <div class="moment-date">Pronto ✦</div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- GUESTBOOK -->
-    <section class="guestbook-section" id="turincon">
-        <div class="container">
-            <div class="guestbook-box">
-                <h2 class="display-5 reveal">Tu Rincón, Saray</h2>
-                <div class="section-ornament reveal" style="color:var(--accent);">✦ ── ── ── ── ── ✦</div>
-                <p class="guestbook-sub reveal">
-                    Este jardín también es tuyo.<br>
-                    Deja tus palabras aquí — las guardaré para siempre.
-                </p>
-                <textarea
-                    id="guestbookInput"
-                    class="guestbook-textarea reveal"
-                    placeholder="Escribe lo que sientes, lo que piensas, lo que quieras dejarme saber..."
-                    maxlength="500"
-                ></textarea>
-                <button class="guestbook-submit reveal" onclick="saveEntry()">
-                    <i class="fas fa-feather-pointed me-2"></i> Dejar mi nota
+            <div class="module-back">
+                <button class="back-btn" onclick="enterSection('hub')">
+                    <i class="fas fa-arrow-up"></i> Volver al jardín
                 </button>
-                <div class="guestbook-entries" id="guestbookEntries"></div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- ── TU RINCÓN ─────────────────────── -->
+    <section class="guestbook-section hidden-module" id="turincon">
+        <div class="container">
+            <div class="guestbook-box">
+                <h2 class="display-5">Tu Rincón, Saray</h2>
+                <div class="section-ornament" style="color:var(--accent);">✦ ── ── ── ── ── ✦</div>
+                <p class="guestbook-sub">
+                    Este jardín también es tuyo.<br>
+                    Deja tus palabras aquí — las guardaré para siempre.
+                </p>
+                <textarea id="guestbookInput" class="guestbook-textarea"
+                    placeholder="Escribe lo que sientes, lo que piensas, lo que quieras dejarme saber..."
+                    maxlength="500"></textarea>
+                <button class="guestbook-submit" onclick="saveEntry()">
+                    <i class="fas fa-feather-pointed me-2"></i> Dejar mi nota
+                </button>
+                <div class="guestbook-entries" id="guestbookEntries"></div>
+            </div>
+            <div class="module-back">
+                <button class="back-btn back-btn-light" onclick="enterSection('hub')">
+                    <i class="fas fa-arrow-up"></i> Volver al jardín
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FOOTER ────────────────────────── -->
     <footer class="footer">
         <div class="container">
-            <p style="font-family:'Playfair Display',serif; font-style:italic;">
+            <p style="font-family:'Playfair Display',serif;font-style:italic;">
                 "Eres la última persona en el mundo con quien podría casarme"<br>
                 <small style="opacity:0.65;">— Palabras que Elizabeth nunca debió decir, porque terminó siendo su único amor verdadero</small>
             </p>
-            <div class="section-ornament my-3" style="margin-bottom:0 !important;">✦ ── ── ── ── ── ✦</div>
-            <p class="mt-3" style="font-family:'Playfair Display',serif; font-size:1.1rem; font-style:italic; opacity:0.75;">
+            <div class="section-ornament my-3">✦ ── ── ── ── ── ✦</div>
+            <p class="mt-3" style="font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;opacity:0.75;">
                 Hay cosas que no hacen falta decirse.
             </p>
-            <p class="mt-2" style="opacity:0.35; font-size:0.82rem; letter-spacing:2px;">— E. · 2026</p>
+            <p class="mt-2" style="opacity:0.35;font-size:0.82rem;letter-spacing:2px;">— E. · 2026</p>
         </div>
     </footer>
 

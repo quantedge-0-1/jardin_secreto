@@ -39,14 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
 function initApp() {
     initReveal();
     initNavScroll();
-    initDailyQuote();
+    initDailyLetter();
     setInterval(updateTimer, 1000);
     initMusic();
     loadEntries();
     startPetals();
 }
 
-/* ── SCROLL REVEAL ── */
+/* ── SCROLL REVEAL (sólo elementos visibles fuera de módulos ocultos) ── */
 function initReveal() {
     const obs = new IntersectionObserver((entries) => {
         entries.forEach((entry, i) => {
@@ -56,7 +56,7 @@ function initReveal() {
             }
         });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    document.querySelectorAll('.reveal:not(.hidden-module *)').forEach(el => obs.observe(el));
 }
 
 /* ── NAVBAR SCROLL ── */
@@ -68,7 +68,29 @@ function initNavScroll() {
 
 /* ── SMOOTH SCROLL ── */
 function enterSection(id) {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ── ABRIR MÓDULO (revela sección oculta y navega a ella) ── */
+function openModule(id) {
+    const section = document.getElementById(id);
+    if (!section) return;
+
+    const wasHidden = section.classList.contains('hidden-module');
+    section.classList.remove('hidden-module');
+    section.classList.add('module-open');
+
+    if (wasHidden) {
+        // Cascada de animaciones para los elementos internos
+        section.querySelectorAll('.reveal, .timeline-item, .quote-card, .virtue-card, .moment-frame, .envelope-card, .letter-container').forEach((el, i) => {
+            el.classList.remove('visible');
+            setTimeout(() => el.classList.add('visible'), 80 + i * 70);
+        });
+    }
+
+    setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
 }
 
 /* ── SEALED LETTERS DATA ── */
@@ -569,18 +591,51 @@ const quotes = [
     { text: "Una mujer inteligente tiene en sus manos la felicidad de todos los que la rodean.", author: "Jane Austen — Emma" }
 ];
 
-/* ── FRASE DIARIA POR DÍA DEL AÑO ── */
-function initDailyQuote() {
+/* ── CARTA DIARIA ── */
+function initDailyLetter() {
     const now   = new Date();
     const start = new Date(now.getFullYear(), 0, 0);
     const dayOfYear = Math.floor((now - start) / 86400000); // 1 – 365
     const q = quotes[(dayOfYear - 1) % quotes.length];
 
-    const qEl = document.getElementById('daily-quote');
-    const aEl = document.getElementById('daily-author');
-    if (qEl) qEl.textContent = `"${q.text}"`;
-    if (aEl) aEl.textContent = `— ${q.author}`;
+    // Carga el contenido de la carta (permanece oculto hasta que ella la abra)
+    const qEl   = document.getElementById('daily-quote');
+    const aEl   = document.getElementById('daily-author');
+    const dateEl = document.getElementById('d-envelope-date');
+
+    if (qEl)   qEl.textContent  = `"${q.text}"`;
+    if (aEl)   aEl.textContent  = `— ${q.author}`;
+    if (dateEl) dateEl.textContent = now.toLocaleDateString('es-ES', {
+        weekday: 'long', day: 'numeric', month: 'long'
+    });
+
+    // Si ya la abrió hoy, muestra la carta directamente
+    if (localStorage.getItem('letterOpenedDate') === now.toDateString()) {
+        openDailyLetter(false);
+    }
+
     updateTimer();
+}
+
+function openDailyLetter(animate = true) {
+    const env   = document.getElementById('d-envelope');
+    const paper = document.getElementById('d-letter-paper');
+    if (!env || !paper) return;
+
+    if (animate) {
+        env.classList.add('d-env-opening');
+        setTimeout(() => {
+            env.style.display = 'none';
+            paper.style.display = 'block';
+            requestAnimationFrame(() => paper.classList.add('visible'));
+        }, 500);
+    } else {
+        env.style.display = 'none';
+        paper.style.display = 'block';
+        paper.classList.add('visible');
+    }
+
+    localStorage.setItem('letterOpenedDate', new Date().toDateString());
 }
 
 function updateTimer() {
