@@ -556,7 +556,17 @@ const quotes = [
     { text: "Donde quiera que vayas, ve con todo tu corazón.", author: "Confucio" },
     { text: "La mayor felicidad es amar y ser amado.", author: "George Sand" },
     { text: "No desperdicio un solo día de mi vida pensando en lo que podría haber sido.", author: "Paul Auster" },
-    { text: "Hay cosas que sólo el tiempo y el silencio pueden decir.", author: "Marguerite Yourcenar — Memorias de Adriano" }
+    { text: "Hay cosas que sólo el tiempo y el silencio pueden decir.", author: "Marguerite Yourcenar — Memorias de Adriano" },
+    /* Jane Austen */
+    { text: "En vano he luchado. No sirve de nada. No puedo reprimir mis sentimientos: debo decirle cuán ardientemente la admiro y la amo.", author: "Jane Austen — Orgullo y Prejuicio (Mr. Darcy)" },
+    { text: "Es un hecho universalmente reconocido que un hombre soltero en posesión de una buena fortuna debe estar necesitado de esposa.", author: "Jane Austen — Orgullo y Prejuicio" },
+    { text: "No puedo determinar la hora, ni el lugar, ni la mirada, ni las palabras que sentaron los cimientos. Estaba ya en medio antes de saber que había comenzado.", author: "Jane Austen — Orgullo y Prejuicio (Mr. Darcy)" },
+    { text: "Me desgarras el alma. Estoy a medias entre la agonía y la esperanza. Dime que no he llegado demasiado tarde.", author: "Jane Austen — Persuasión (Carta del Capitán Wentworth)" },
+    { text: "Piensa en el pasado sólo en la medida en que su recuerdo te dé placer.", author: "Jane Austen — Orgullo y Prejuicio (Elizabeth Bennet)" },
+    { text: "La persona que no encuentra placer en una buena novela debe ser intolerablemente estúpida.", author: "Jane Austen — La Abadía de Northanger" },
+    { text: "Hay pocas personas a quienes quiero de verdad, y aún menos de quienes pienso bien.", author: "Jane Austen — Orgullo y Prejuicio (Elizabeth Bennet)" },
+    { text: "Conócete a ti misma. Lo único que te hace falta es paciencia... o dale un nombre más fascinante: llámala esperanza.", author: "Jane Austen — Sentido y Sensibilidad" },
+    { text: "Una mujer inteligente tiene en sus manos la felicidad de todos los que la rodean.", author: "Jane Austen — Emma" }
 ];
 
 /* ── FRASE DIARIA POR DÍA DEL AÑO ── */
