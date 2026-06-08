@@ -239,9 +239,12 @@ window.addEventListener('scroll', () => {
    4. Registra una app web y pega el config abajo
 ══════════════════════════════════════════ */
 const FB_CONFIG = {
-    apiKey:    "",   // pega aquí
-    projectId: "",   // pega aquí
-    appId:     ""    // pega aquí
+    apiKey:            "AIzaSyCg1UyqglY6MvhkB_5iZWuoV4GZ4ws7vvk",
+    authDomain:        "jardin-secreto-3480e.firebaseapp.com",
+    projectId:         "jardin-secreto-3480e",
+    storageBucket:     "jardin-secreto-3480e.firebasestorage.app",
+    messagingSenderId: "945608348316",
+    appId:             "1:945608348316:web:f501d2ab3399dcb5a1d359"
 };
 
 let db = null;
