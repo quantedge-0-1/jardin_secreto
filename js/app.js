@@ -41,7 +41,6 @@ function initApp() {
     initNavScroll();
     initDailyLetter();
     setInterval(updateTimer, 1000);
-    initMusic();
     loadEntries();
     startPetals();
     initPlayer();
@@ -730,25 +729,6 @@ function updateTimer() {
 }
 
 /* ── MUSIC ── */
-function initMusic() {
-    const music = document.getElementById('bg-music');
-    const btn   = document.getElementById('music-btn');
-    let playing = false;
-
-    function play() {
-        if (!music || playing) return;
-        music.volume = 0.15;
-        music.play().then(() => { playing = true; btn?.classList.add('playing'); }).catch(() => {});
-    }
-    function pause() {
-        if (!music || !playing) return;
-        music.pause(); playing = false; btn?.classList.remove('playing');
-    }
-
-    btn?.addEventListener('click', e => { e.stopPropagation(); playing ? pause() : play(); });
-    document.addEventListener('visibilitychange', () => document.hidden ? pause() : play());
-    play();
-}
 
 /* ══════════════════════════════════════════
    CUSTOM AUDIO PLAYER
@@ -827,7 +807,26 @@ function cpLoad(idx, autoplay = false) {
     const item = document.getElementById(`cp-item-${idx}`);
     item?.classList.add('active');
     item?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    cpMediaSession(s);
     if (autoplay) { audio.play(); cpPlaying = true; cpUpdateUI(true); }
+}
+
+function cpMediaSession(song) {
+    if (!('mediaSession' in navigator)) return;
+    navigator.mediaSession.metadata = new MediaMetadata({
+        title:  song.title,
+        artist: song.artist,
+        album:  'Jardín Secreto',
+        artwork: [{ src: 'favicon.svg', sizes: 'any', type: 'image/svg+xml' }]
+    });
+    navigator.mediaSession.setActionHandler('play',          () => { document.getElementById('song-audio').play();  cpPlaying = true;  cpUpdateUI(true);  });
+    navigator.mediaSession.setActionHandler('pause',         () => { document.getElementById('song-audio').pause(); cpPlaying = false; cpUpdateUI(false); });
+    navigator.mediaSession.setActionHandler('previoustrack', cpPrev);
+    navigator.mediaSession.setActionHandler('nexttrack',     cpNext);
+    navigator.mediaSession.setActionHandler('seekto', e => {
+        const audio = document.getElementById('song-audio');
+        if (audio && e.seekTime != null) audio.currentTime = e.seekTime;
+    });
 }
 
 function cpToggle() {
@@ -845,6 +844,7 @@ function cpUpdateUI(playing) {
     const disc = document.getElementById('cp-disc');
     if (icon) icon.className = playing ? 'fas fa-pause' : 'fas fa-play';
     if (disc) playing ? disc.classList.add('spinning') : disc.classList.remove('spinning');
+    if ('mediaSession' in navigator) navigator.mediaSession.playbackState = playing ? 'playing' : 'paused';
     songs.forEach((_, i) => {
         const ic = document.getElementById(`cp-icon-${i}`);
         if (!ic) return;
