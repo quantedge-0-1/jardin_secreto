@@ -44,6 +44,7 @@ function initApp() {
     initMusic();
     loadEntries();
     startPetals();
+    initPlayer();
 }
 
 /* ── SCROLL REVEAL (sólo elementos visibles fuera de módulos ocultos) ── */
@@ -669,4 +670,112 @@ function initMusic() {
     btn?.addEventListener('click', e => { e.stopPropagation(); playing ? pause() : play(); });
     document.addEventListener('visibilitychange', () => document.hidden ? pause() : play());
     play();
+}
+
+/* ══════════════════════════════════════════
+   CUSTOM AUDIO PLAYER
+══════════════════════════════════════════ */
+const songs = [
+    { title: 'Yellow',              artist: 'Coldplay',             src: 'audio/yellow-coldplay.mp3' },
+    { title: 'The Scientist',       artist: 'Coldplay',             src: 'audio/the-scientist-coldplay.mp3' },
+    { title: 'On Melancholy Hill',  artist: 'Gorillaz',             src: 'audio/on-melancholy-hill-gorillaz.mp3' },
+    { title: 'Creep',               artist: 'Radiohead',            src: 'audio/creep-radiohead.mp3' },
+    { title: "Nobody's Around",     artist: 'YNW Melly',            src: 'audio/nobodys-around-ynw-melly.mp3' },
+    { title: 'Dangerously In Love', artist: 'YNW Melly',            src: 'audio/dangerously-in-love-ynw-melly.mp3' },
+    { title: 'Cry',                 artist: 'Cigarettes After Sex', src: 'audio/cry-cigarettes-after-sex.mp3' },
+    { title: 'Celeste',             artist: 'd4vd',                 src: 'audio/celeste-d4vd.mp3' },
+    { title: 'Here With Me',        artist: 'd4vd',                 src: 'audio/here-with-me-d4vd.mp3' },
+    { title: 'Vermilion Pt. 2',     artist: 'Slipknot',             src: 'audio/vermilion-pt2-slipknot.mp3' },
+    { title: 'Snuff',               artist: 'Slipknot',             src: 'audio/snuff-slipknot.mp3' },
+    { title: 'The Night We Met',    artist: 'Lord Huron',           src: 'audio/the-night-we-met-lord-huron.mp3' },
+    { title: 'Dunno',               artist: 'Mac Miller',           src: 'audio/dunno-mac-miller.mp3' },
+    { title: 'Lo que hay x aquí',   artist: 'Rels B',               src: 'audio/lo-que-hay-rels-b.mp3' },
+    { title: 'Lovesong',            artist: 'The Cure',             src: 'audio/lovesong-the-cure.mp3' },
+    { title: 'Bonnie & Clyde',      artist: '—',                    src: 'audio/bonnie-clyde.mp3' },
+];
+
+let cpIdx = 0, cpPlaying = false;
+
+function initPlayer() {
+    const playlist = document.getElementById('cp-playlist');
+    if (!playlist) return;
+
+    songs.forEach((s, i) => {
+        const el = document.createElement('div');
+        el.className = 'cp-item';
+        el.id = `cp-item-${i}`;
+        el.innerHTML = `
+            <span class="cp-item-num">${String(i + 1).padStart(2, '0')}</span>
+            <div class="cp-item-info">
+                <span class="cp-item-title">${s.title}</span>
+                <span class="cp-item-artist">${s.artist}</span>
+            </div>
+            <i class="fas fa-play cp-item-icon" id="cp-icon-${i}"></i>`;
+        el.addEventListener('click', () => cpLoad(i, true));
+        playlist.appendChild(el);
+    });
+
+    const audio = document.getElementById('song-audio');
+    const seekbar = document.getElementById('cp-seekbar');
+    if (!audio || !seekbar) return;
+
+    audio.addEventListener('timeupdate', () => {
+        if (!audio.duration) return;
+        const pct = (audio.currentTime / audio.duration) * 100;
+        seekbar.value = pct;
+        seekbar.style.background = `linear-gradient(to right, var(--primary) ${pct}%, rgba(255,255,255,0.15) ${pct}%)`;
+        document.getElementById('cp-current').textContent = cpFmt(audio.currentTime);
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+        document.getElementById('cp-total').textContent = cpFmt(audio.duration);
+    });
+
+    audio.addEventListener('ended', cpNext);
+
+    seekbar.addEventListener('input', () => {
+        if (audio.duration) audio.currentTime = (seekbar.value / 100) * audio.duration;
+    });
+}
+
+function cpLoad(idx, autoplay = false) {
+    document.querySelectorAll('.cp-item').forEach(el => el.classList.remove('active'));
+    cpIdx = idx;
+    const s = songs[idx];
+    const audio = document.getElementById('song-audio');
+    audio.src = s.src;
+    document.getElementById('cp-title').textContent = s.title;
+    document.getElementById('cp-artist').textContent = s.artist;
+    const item = document.getElementById(`cp-item-${idx}`);
+    item?.classList.add('active');
+    item?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (autoplay) { audio.play(); cpPlaying = true; cpUpdateUI(true); }
+}
+
+function cpToggle() {
+    const audio = document.getElementById('song-audio');
+    if (!audio.src || audio.src === window.location.href) { cpLoad(0, true); return; }
+    if (audio.paused) { audio.play(); cpPlaying = true; cpUpdateUI(true); }
+    else              { audio.pause(); cpPlaying = false; cpUpdateUI(false); }
+}
+
+function cpPrev() { cpLoad((cpIdx - 1 + songs.length) % songs.length, cpPlaying); }
+function cpNext() { cpLoad((cpIdx + 1) % songs.length, true); }
+
+function cpUpdateUI(playing) {
+    const icon = document.getElementById('cp-play-icon');
+    const disc = document.getElementById('cp-disc');
+    if (icon) icon.className = playing ? 'fas fa-pause' : 'fas fa-play';
+    if (disc) playing ? disc.classList.add('spinning') : disc.classList.remove('spinning');
+    songs.forEach((_, i) => {
+        const ic = document.getElementById(`cp-icon-${i}`);
+        if (!ic) return;
+        ic.className = (i === cpIdx && playing) ? 'fas fa-pause cp-item-icon playing' : 'fas fa-play cp-item-icon';
+    });
+}
+
+function cpFmt(s) {
+    if (isNaN(s)) return '0:00';
+    const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+    return `${m}:${String(sec).padStart(2, '0')}`;
 }
