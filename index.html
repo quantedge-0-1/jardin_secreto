@@ -523,13 +523,15 @@
                     Este jardín también es tuyo.<br>
                     Deja tus palabras aquí — las guardaré para siempre.
                 </p>
-                <textarea id="guestbookInput" class="guestbook-textarea"
-                    placeholder="Escribe lo que sientes, lo que piensas, lo que quieras dejarme saber..."
-                    maxlength="500"></textarea>
-                <button class="guestbook-submit" onclick="saveEntry()">
-                    <i class="fas fa-feather-pointed me-2"></i> Dejar mi nota
-                </button>
-                <div class="guestbook-entries" id="guestbookEntries"></div>
+                <div class="carta-write-area reveal">
+                    <textarea id="guestbookInput" class="guestbook-textarea"
+                        placeholder="Escribe lo que sientes, lo que piensas, lo que quieras dejarme saber..."
+                        rows="6"></textarea>
+                    <button class="guestbook-submit" onclick="saveEntry()">
+                        <i class="fas fa-feather-pointed me-2"></i> Guardar carta
+                    </button>
+                </div>
+                <div class="cartas-grid" id="guestbookEntries"></div>
             </div>
             <div class="module-back">
                 <button class="back-btn back-btn-light" onclick="enterSection('hub')">
@@ -538,6 +540,17 @@
             </div>
         </div>
     </section>
+
+    <!-- ── MODAL LEER CARTA ── -->
+    <div class="carta-overlay" id="carta-overlay" onclick="closeCarta(event)">
+        <div class="carta-modal-box">
+            <button class="carta-modal-close" onclick="closeCarta()"><i class="fas fa-times"></i></button>
+            <div class="carta-modal-ornament">✦ ── ── ✦</div>
+            <div class="carta-modal-date" id="carta-modal-date"></div>
+            <div class="carta-modal-body" id="carta-modal-body"></div>
+            <div class="carta-modal-sig">— Saray <i class="fas fa-heart ms-2" style="color:var(--primary);font-size:0.8rem;"></i></div>
+        </div>
+    </div>
 
     <!-- ── FOOTER ────────────────────────── -->
     <footer class="footer">
@@ -557,6 +570,8 @@
 </div><!-- /main-content -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

@@ -230,38 +230,113 @@ window.addEventListener('scroll', () => {
 });
 
 /* ── GUESTBOOK ── */
+/* ══════════════════════════════════════════
+   FIREBASE CONFIG
+   Para sincronizar cartas entre dispositivos:
+   1. Ve a https://console.firebase.google.com
+   2. Crea un proyecto → "jardin-secreto"
+   3. Activa Firestore Database (modo prueba)
+   4. Registra una app web y pega el config abajo
+══════════════════════════════════════════ */
+const FB_CONFIG = {
+    apiKey:    "",   // pega aquí
+    projectId: "",   // pega aquí
+    appId:     ""    // pega aquí
+};
+
+let db = null;
+(function initFirebase() {
+    if (!FB_CONFIG.apiKey || !FB_CONFIG.projectId) return;
+    try {
+        firebase.initializeApp(FB_CONFIG);
+        db = firebase.firestore();
+    } catch(e) { db = null; }
+})();
+
+/* ── CARTAS ── */
+let cartasCache = [];
+
 function saveEntry() {
-    const inp = document.getElementById('guestbookInput');
+    const inp  = document.getElementById('guestbookInput');
     const text = inp?.value.trim();
     if (!text) return;
-    const entries = JSON.parse(localStorage.getItem('gardenNotes') || '[]');
-    entries.unshift({
+    const now  = new Date();
+    const entry = {
         text,
-        date: new Date().toLocaleDateString('es-ES', {
-            year:'numeric', month:'long', day:'numeric',
-            hour:'2-digit', minute:'2-digit'
-        })
-    });
-    if (entries.length > 10) entries.pop();
-    localStorage.setItem('gardenNotes', JSON.stringify(entries));
+        date: now.toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long', year:'numeric' }),
+        time: now.toLocaleTimeString('es-ES', { hour:'2-digit', minute:'2-digit', second:'2-digit' }),
+        ts:   now.getTime()
+    };
+
+    if (db) {
+        db.collection('cartas').add({ ...entry, ts: firebase.firestore.FieldValue.serverTimestamp() })
+          .then(() => loadEntries())
+          .catch(() => saveLocal(entry));
+    } else {
+        saveLocal(entry);
+    }
     inp.value = '';
-    renderEntries(entries);
+}
+
+function saveLocal(entry) {
+    const list = JSON.parse(localStorage.getItem('gardenNotes') || '[]');
+    list.unshift(entry);
+    localStorage.setItem('gardenNotes', JSON.stringify(list));
+    renderEntries(list);
 }
 
 function loadEntries() {
-    renderEntries(JSON.parse(localStorage.getItem('gardenNotes') || '[]'));
+    if (db) {
+        db.collection('cartas').orderBy('ts', 'desc').get()
+          .then(snap => {
+              const list = snap.docs.map(d => d.data());
+              cartasCache = list;
+              renderEntries(list);
+          })
+          .catch(() => loadLocal());
+    } else {
+        loadLocal();
+    }
+}
+
+function loadLocal() {
+    const list = JSON.parse(localStorage.getItem('gardenNotes') || '[]');
+    cartasCache = list;
+    renderEntries(list);
 }
 
 function renderEntries(entries) {
     const box = document.getElementById('guestbookEntries');
     if (!box) return;
+    cartasCache = entries;
     if (!entries.length) { box.innerHTML = ''; return; }
-    box.innerHTML = `<h6 style="color:var(--accent);margin-bottom:18px;font-family:'Playfair Display',serif;font-size:1.05rem;">Tus palabras en este jardín:</h6>` +
-        entries.map(e => `
-            <div class="guestbook-entry">
-                <div class="entry-text">${esc(e.text)}</div>
-                <div class="entry-meta">✦ ${e.date}</div>
-            </div>`).join('');
+    box.innerHTML = entries.map((e, i) => `
+        <div class="carta-card" onclick="openCarta(${i})">
+            <div class="carta-card-top">
+                <i class="fas fa-envelope"></i>
+                <span class="carta-card-num">${String(i + 1).padStart(2,'0')}</span>
+            </div>
+            <div class="carta-card-date">${e.date || ''}</div>
+            <div class="carta-card-time">${e.time || ''}</div>
+            <div class="carta-card-preview">${esc(e.text).substring(0, 90)}${e.text.length > 90 ? '…' : ''}</div>
+        </div>`).join('');
+}
+
+function openCarta(idx) {
+    const e = cartasCache[idx];
+    if (!e) return;
+    document.getElementById('carta-modal-date').textContent = `${e.date}  ·  ${e.time}`;
+    document.getElementById('carta-modal-body').innerHTML = esc(e.text).replace(/\n/g, '<br>');
+    document.getElementById('carta-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCarta(event) {
+    if (event && event.target !== document.getElementById('carta-overlay') &&
+        !event.target.classList.contains('carta-modal-close') &&
+        !event.target.closest('.carta-modal-close')) return;
+    document.getElementById('carta-overlay')?.classList.remove('open');
+    document.body.style.overflow = '';
 }
 
 function esc(t) {
