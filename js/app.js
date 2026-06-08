@@ -84,7 +84,7 @@ function openModule(id) {
 
     if (wasHidden) {
         // Cascada de animaciones para los elementos internos
-        section.querySelectorAll('.reveal, .timeline-item, .quote-card, .virtue-card, .moment-frame, .envelope-card, .letter-container').forEach((el, i) => {
+        section.querySelectorAll('.reveal, .timeline-item, .quote-card, .virtue-card, .song-card, .envelope-card, .letter-container').forEach((el, i) => {
             el.classList.remove('visible');
             setTimeout(() => el.classList.add('visible'), 80 + i * 70);
         });

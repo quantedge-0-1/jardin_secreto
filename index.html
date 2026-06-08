@@ -156,10 +156,10 @@
                     <button class="hub-btn">Abrir</button>
                 </div>
 
-                <div class="hub-card" onclick="openModule('momentos')">
-                    <div class="hub-icon"><i class="fas fa-images"></i></div>
-                    <div class="hub-title">Momentos</div>
-                    <div class="hub-desc">Nuestros recuerdos</div>
+                <div class="hub-card" onclick="openModule('canciones')">
+                    <div class="hub-icon"><i class="fas fa-headphones"></i></div>
+                    <div class="hub-title">Canciones</div>
+                    <div class="hub-desc">Que me recuerdan a ti</div>
                     <button class="hub-btn">Abrir</button>
                 </div>
 
@@ -472,62 +472,149 @@
         </div>
     </section>
 
-    <!-- ── MOMENTOS ──────────────────────── -->
-    <section class="moments-section hidden-module" id="momentos">
+    <!-- ── CANCIONES ─────────────────────── -->
+    <section class="songs-section hidden-module" id="canciones">
         <div class="container">
             <div class="module-header">
-                <h2 class="display-4 section-heading">Nuestros Momentos</h2>
-                <div class="section-ornament">✦ ── ── ── ── ── ✦</div>
-                <p class="mt-3" style="color:var(--secondary);font-style:italic;font-size:1.05rem;">
-                    Un lugar reservado para nuestros recuerdos
-                </p>
+                <h2 class="display-4 section-title-light">Canciones</h2>
+                <div class="section-ornament" style="color:var(--accent);">✦ ── ── ── ── ── ✦</div>
+                <p class="section-sub-light">Que me recuerdan a ti</p>
             </div>
-            <div class="row mt-4">
-                <div class="col-md-4 mb-4">
-                    <div class="moment-frame">
-                        <div class="moment-placeholder"><i class="fas fa-camera"></i><span>Nuestra primera foto juntos</span></div>
-                        <div class="moment-caption">El primer capítulo</div>
-                        <div class="moment-date">Pronto aquí ✦</div>
+            <div class="songs-grid mt-4">
+
+                <div class="song-card">
+                    <div class="song-cover" style="background:linear-gradient(135deg,#f7df6e,#f0c040);">
+                        <i class="fas fa-music"></i>
                     </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="moment-frame">
-                        <div class="moment-placeholder"><i class="fas fa-star"></i><span>Un momento especial</span></div>
-                        <div class="moment-caption">Memorias del corazón</div>
-                        <div class="moment-date">Pronto aquí ✦</div>
+                    <div class="song-info">
+                        <div class="song-title">Yellow</div>
+                        <div class="song-artist">Coldplay</div>
                     </div>
+                    <a class="song-btn" href="https://www.youtube.com/results?search_query=yellow+coldplay" target="_blank" rel="noopener">
+                        <i class="fas fa-play"></i> Escuchar
+                    </a>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="moment-frame">
-                        <div class="moment-placeholder"><i class="fas fa-heart"></i><span>Nuestro favorito</span></div>
-                        <div class="moment-caption">Lo que más atesoro</div>
-                        <div class="moment-date">Pronto aquí ✦</div>
+
+                <div class="song-card">
+                    <div class="song-cover" style="background:linear-gradient(135deg,#3a7bd5,#00d2ff);">
+                        <i class="fas fa-music"></i>
                     </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="moment-frame">
-                        <div class="moment-placeholder"><i class="fas fa-moon"></i><span>Las noches que hablamos</span></div>
-                        <div class="moment-caption">Conversaciones eternas</div>
-                        <div class="moment-date">Pronto aquí ✦</div>
+                    <div class="song-info">
+                        <div class="song-title">On Melancholy Hill</div>
+                        <div class="song-artist">Gorillaz</div>
                     </div>
+                    <a class="song-btn" href="https://www.youtube.com/results?search_query=on+melancholy+hill+gorillaz" target="_blank" rel="noopener">
+                        <i class="fas fa-play"></i> Escuchar
+                    </a>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <div class="moment-frame">
-                        <div class="moment-placeholder"><i class="fas fa-spa"></i><span>Tu esencia</span></div>
-                        <div class="moment-caption">Tu manera de ser</div>
-                        <div class="moment-date">Pronto aquí ✦</div>
+
+                <div class="song-card">
+                    <div class="song-cover" style="background:linear-gradient(135deg,#c0392b,#8e44ad);">
+                        <i class="fas fa-music"></i>
                     </div>
-                </div>
-                <div class="col-md-4 mb-4">
-                    <div class="moment-frame">
-                        <div class="moment-placeholder"><i class="fas fa-map-location-dot"></i><span>El reencuentro</span></div>
-                        <div class="moment-caption">Cuando volvamos a vernos</div>
-                        <div class="moment-date">Pronto ✦</div>
+                    <div class="song-info">
+                        <div class="song-title">Creep</div>
+                        <div class="song-artist">Radiohead</div>
                     </div>
+                    <a class="song-btn" href="https://www.youtube.com/results?search_query=creep+radiohead" target="_blank" rel="noopener">
+                        <i class="fas fa-play"></i> Escuchar
+                    </a>
                 </div>
+
+                <div class="song-card">
+                    <div class="song-cover" style="background:linear-gradient(135deg,#11998e,#38ef7d);">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="song-info">
+                        <div class="song-title">Nobody's Around</div>
+                        <div class="song-artist">YNW Melly</div>
+                    </div>
+                    <a class="song-btn" href="https://www.youtube.com/results?search_query=nobody+around+ynw+melly" target="_blank" rel="noopener">
+                        <i class="fas fa-play"></i> Escuchar
+                    </a>
+                </div>
+
+                <div class="song-card">
+                    <div class="song-cover" style="background:linear-gradient(135deg,#f7df6e,#f0c040);">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="song-info">
+                        <div class="song-title">The Scientist</div>
+                        <div class="song-artist">Coldplay</div>
+                    </div>
+                    <a class="song-btn" href="https://www.youtube.com/results?search_query=the+scientist+coldplay" target="_blank" rel="noopener">
+                        <i class="fas fa-play"></i> Escuchar
+                    </a>
+                </div>
+
+                <div class="song-card">
+                    <div class="song-cover" style="background:linear-gradient(135deg,#e96c9a,#f7c6d3);">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="song-info">
+                        <div class="song-title">Cry</div>
+                        <div class="song-artist">Cigarettes After Sex</div>
+                    </div>
+                    <a class="song-btn" href="https://www.youtube.com/results?search_query=cry+cigarettes+after+sex" target="_blank" rel="noopener">
+                        <i class="fas fa-play"></i> Escuchar
+                    </a>
+                </div>
+
+                <div class="song-card">
+                    <div class="song-cover" style="background:linear-gradient(135deg,#6a3093,#a044ff);">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="song-info">
+                        <div class="song-title">Celeste</div>
+                        <div class="song-artist">d4vd</div>
+                    </div>
+                    <a class="song-btn" href="https://www.youtube.com/results?search_query=celeste+d4vd" target="_blank" rel="noopener">
+                        <i class="fas fa-play"></i> Escuchar
+                    </a>
+                </div>
+
+                <div class="song-card">
+                    <div class="song-cover" style="background:linear-gradient(135deg,#6a3093,#a044ff);">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="song-info">
+                        <div class="song-title">Here With Me</div>
+                        <div class="song-artist">d4vd</div>
+                    </div>
+                    <a class="song-btn" href="https://www.youtube.com/results?search_query=here+with+me+d4vd" target="_blank" rel="noopener">
+                        <i class="fas fa-play"></i> Escuchar
+                    </a>
+                </div>
+
+                <div class="song-card">
+                    <div class="song-cover" style="background:linear-gradient(135deg,#434343,#000000);">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="song-info">
+                        <div class="song-title">Vermilion Pt. 2</div>
+                        <div class="song-artist">Slipknot</div>
+                    </div>
+                    <a class="song-btn" href="https://www.youtube.com/results?search_query=vermilion+part+2+slipknot" target="_blank" rel="noopener">
+                        <i class="fas fa-play"></i> Escuchar
+                    </a>
+                </div>
+
+                <div class="song-card">
+                    <div class="song-cover" style="background:linear-gradient(135deg,#434343,#000000);">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="song-info">
+                        <div class="song-title">Snuff</div>
+                        <div class="song-artist">Slipknot</div>
+                    </div>
+                    <a class="song-btn" href="https://www.youtube.com/results?search_query=snuff+slipknot" target="_blank" rel="noopener">
+                        <i class="fas fa-play"></i> Escuchar
+                    </a>
+                </div>
+
             </div>
             <div class="module-back">
-                <button class="back-btn" onclick="enterSection('hub')">
+                <button class="back-btn back-btn-light" onclick="enterSection('hub')">
                     <i class="fas fa-arrow-up"></i> Volver al jardín
                 </button>
             </div>
